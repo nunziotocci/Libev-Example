@@ -1,0 +1,7 @@
+#pragma once
+
+#define EV_MULTIPLICITY 1
+
+#define HAVE_SELECT 1
+#define HAVE_SYS_SELECT_H 1
+
