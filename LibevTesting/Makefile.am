@@ -11,7 +11,6 @@ include_HEADERS = ev.h
 noinst_LTLIBRARIES = libev.la
 
 libev_la_SOURCES = ev.c
-libev_la_LDFLAGS = -version-info $(VERSION_INFO)
 
 
 noinst_PROGRAMS = LibevExample

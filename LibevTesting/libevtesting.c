@@ -11,6 +11,7 @@
 	#define EV_CONFIG_H "ev_config.h.win32"
 	#include "ev.c"
 #else
+	#include <wchar.h>
 	#include <netinet/in.h>
 	#include <sys/socket.h>
 	#include <netdb.h>
