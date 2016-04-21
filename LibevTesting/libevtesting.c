@@ -11,12 +11,15 @@
 	#define EV_CONFIG_H "ev_config.h.win32"
 	#include "ev.c"
 #else
+	#include <netinet/in.h>
 	#include <sys/socket.h>
 	#include <netdb.h>
 
 	#include <unistd.h>
+	#include <errno.h>
 
 	#define SOCKET int
+	#define SOCKET_ERROR -1
 	#define INVALID_SOCKET -1
 	#include <ev.h>
 #endif
@@ -47,7 +50,7 @@ void client_cb(EV_P, ev_io *w, int revents) {
 
 	int ret = recv(_client->int_sock, buf1, 1000, 0);
 	if (ret == SOCKET_ERROR) {
-		printf("recv failed, error: %d\n", WSAGetLastError());
+		printf("recv failed, error: %d\n", errno);
 		abort();
 	}
 
@@ -91,7 +94,7 @@ void server_cb(EV_P, ev_io *w, int revents) {
 		errno = 0;
 		int_client_sock = accept(int_sock, (struct sockaddr *)&client_address, &int_client_len);
 		if (int_client_sock == -1) {
-			if (errno != EAGAIN && errno != EWOULDBLOCK && errno != 0 && errno != WSAEWOULDBLOCK) {
+			if (errno != EAGAIN && errno != EWOULDBLOCK && errno != 0) {
 				printf("accept() failed errno: %i (%s)\012", errno, strerror(errno));
 				abort();
 			} else {
